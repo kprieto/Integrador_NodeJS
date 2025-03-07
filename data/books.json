@@ -1,0 +1,24 @@
+[    {
+    "id": 1,
+    "title": "Cien Años de Soledad",
+    "author": "Gabriel García Márquez",
+    "publisher": "Editorial Sudamericana",
+    "year": 1967
+},
+{
+    "id": 2,
+    "title": "La Felicidad",
+    "author": "Gabriel Rolón",
+    "publisher": "Planeta",
+    "year": 1967
+
+},
+{
+    "id": 3,
+    "title": "El Hombre en busca de Sentido",
+    "author": "Viktor Frankl",
+    "publisher": "Herder",
+    "year": 1967
+
+}
+]

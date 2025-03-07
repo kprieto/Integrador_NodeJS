@@ -1,0 +1,14 @@
+[{
+    "id": 1,
+    "name" : "Gabriel García Márquez",
+    "nationality": "Colombiano"
+},
+{
+    "id": 2,
+    "name" : "Gabriel Rolón",
+    "nationality": "Argentina"
+},{
+    "id": 3,
+    "name" : "Viktor Frankl",
+    "nationality": "Español"
+}]
