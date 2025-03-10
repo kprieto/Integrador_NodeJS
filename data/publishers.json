@@ -1,4 +1,5 @@
-[{
+{
+    "publishers": [ {
     "id": 1,
     "name": "Editorial Sudamericana",
     "numBooks" : 1523
@@ -15,4 +16,4 @@
     "name": "Herder",
     "numBooks" : 1000
 
-}]
+}]}

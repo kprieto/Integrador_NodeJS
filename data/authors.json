@@ -1,4 +1,5 @@
-[{
+{
+    "authors": [ {
     "id": 1,
     "name" : "Gabriel García Márquez",
     "nationality": "Colombiano"
@@ -11,4 +12,4 @@
     "id": 3,
     "name" : "Viktor Frankl",
     "nationality": "Español"
-}]
+}]}
