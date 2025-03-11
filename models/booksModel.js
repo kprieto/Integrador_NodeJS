@@ -26,7 +26,7 @@ const eliminarLibro = (id) => {
     libros.books = libros.books.filter(libro => libro.id !== id);
     escribirLibros(libros);
 };
-  
+
 const actualizarLibro = (id, nuevosDatos) => {
     const libros = leerLibros();
     const index = libros.books.findIndex(libro => libro.id === id);
@@ -35,10 +35,16 @@ const actualizarLibro = (id, nuevosDatos) => {
       escribirLibros(libros);
     }
 };
-  
-  module.exports = {
+
+const buscarLibroPorTitulo = (title) =>{
+    const libros = leerLibros();
+    return libros.books.find(book => book.title.toLowerCase() === title.toLowerCase()) || null;
+}
+
+module.exports = {
     leerLibros,
     escribirLibros,
     eliminarLibro,
-    actualizarLibro
-  };
+    actualizarLibro,
+    buscarLibroPorTitulo
+};
