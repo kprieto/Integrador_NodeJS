@@ -25,14 +25,35 @@ const eliminarEditorial = (id) => {
     const editoriales = leerEditoriales();
     editoriales.publishers = editoriales.publishers.filter(editorial => editorial.id !== id);
     escribirEditoriales(editoriales);
+    try {
+        const editoriales = leerEditoriales();
+         // 🔍 Verificar si el ID existe
+        const editorialExistente = editoriales.publishers.findIndex(book => String(book.id) === String(id));
+        if (editorialExistente === -1) {
+            console.log('❌ Error: La editorial con ese ID no existe.')
+            return '❌ Error: La editorial con ese ID no existe.';
+        }
+        
+        // Eliminar el editor
+        const editorialEliminado = editoriales.publishers.splice(editorialExistente, 1)[0];
+        fs.writeFileSync(publishersPath, JSON.stringify(editoriales, null, 2));
+        console.log(`🗑️ Editorial con ID ${id} eliminado correctamente.`);
+        return ` Editorial con ID ${id} eliminado correctamente.`
+            
+    } catch (error){
+            console.log('❌ Error: No se pudo procesar la solicitud.');
+        }
 };
 
-const actualizarEditorial = (id, nuevosDatos) => {
+const actualizarEditorial = (updatedPublisher) => {
     const editoriales = leerEditoriales();
-    const index = editoriales.publishers.findIndex(editorial => editorial.id === id);
+    const index = editoriales.publishers.findIndex(book => book.id == updatedPublisher.id);
     if (index !== -1) {
-        editoriales.publishers[index] = { ...editoriales.publishers[index], ...nuevosDatos };
-        escribirEditoriales(editoriales);
+        editoriales.publishers[index] = updatedPublisher;
+        fs.writeFileSync(publishersPath, JSON.stringify(editoriales, null, 2));
+        console.log('🔄 Editorial actualizado correctamente.');
+    } else {
+        console.log('❌ Editorial no encontrado.');
     }
 };
 

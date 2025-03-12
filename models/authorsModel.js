@@ -22,18 +22,36 @@ const escribirAutores = (data) => {
 };
 
 const eliminarAutor = (id) => {
-    const autores = leerAutores();
-    autores.authors = autores.authors.filter(autor => autor.id !== id);
-    escribirAutores(autores);
+        try {
+            const data = leerAutores();
+            // 🔍 Verificar si el ID existe
+            const autorExistente = data.authors.findIndex(book => String(book.id) === String(id));
+            if (autorExistente === -1) {
+                console.log('❌ Error: El libro con ese ID no existe.')
+                return '❌ Error: El libro con ese ID no existe.';
+            }
+    
+            // Eliminar el autor
+            const autorEliminado = data.authors.splice(autorExistente, 1)[0];
+            fs.writeFileSync(authorsPath, JSON.stringify(data, null, 2));
+            console.log(`🗑️ Autor con ID ${id} eliminado correctamente.`);
+            return ` Autor con ID ${id} eliminado correctamente.`
+        
+        } catch (error){
+            console.log('❌ Error: No se pudo procesar la solicitud.');
+        }
 };
 
-const actualizarAutor = (id, nuevosDatos) => {
+const actualizarAutor = (updatedAuthor) => {
     const autores = leerAutores();
-    const index = autores.authors.findIndex(autor => autor.id === id);
+    const index = autores.authors.findIndex(book => book.id == updatedAuthor.id);
     if (index !== -1) {
-        autores.authors[index] = { ...autores.authors[index], ...nuevosDatos };
-        escribirAutores(autores);
-}
+        autores.authors[index] = updatedAuthor;
+        fs.writeFileSync(authorsPath, JSON.stringify(autores, null, 2));
+        console.log('🔄 Autor actualizado correctamente.');
+    } else {
+        console.log('❌ Autor no encontrado.');
+    }
 };
 
 module.exports = {

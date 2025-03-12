@@ -14,8 +14,8 @@ const eliminarEditorialPorId = (id) => {
     eliminarEditorial(id);
 };
 
-const actualizarEditorialPorId = (id, nuevosDatos) => {
-    actualizarEditorial(id, nuevosDatos);
+const actualizarEditorialPorId = (nuevosDatos) => {
+    actualizarEditorial(nuevosDatos);
 };
 
 module.exports = {

@@ -14,8 +14,8 @@ const eliminarAutorPorId = (id) => {
     eliminarAutor(id);
 };
 
-const actualizarAutorPorId = (id, nuevosDatos) => {
-    actualizarAutor(id, nuevosDatos);
+const actualizarAutorPorId = (nuevosDatos) => {
+    actualizarAutor(nuevosDatos);
 };
 
 module.exports = {

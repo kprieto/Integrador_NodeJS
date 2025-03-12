@@ -22,19 +22,21 @@ const escribirLibros = (data) => {
 };
 
 const eliminarLibro = (id) => {
-    const data = leerLibros();
+    
     try {
-    // 🔍 Verificar si el ID existe
-    const libroExistente = data.books.find(book => book.id == id);
-    if (libroExistente === -1) {
-        return '❌ Error: El libro con ese ID no existe.';
-    }
+        const data = leerLibros();
+        // 🔍 Verificar si el ID existe
+        const libroExistente = data.books.findIndex(book => String(book.id) === String(id));
+        if (libroExistente === -1) {
+            console.log('❌ Error: El libro con ese ID no existe.')
+            return '❌ Error: El libro con ese ID no existe.';
+        }
 
-    // Eliminar el libro
-    data.books.splice(libroExistente, 1);
-    fs.writeFileSync(booksPath, JSON.stringify(data, null, 2));
-    console.log(`🗑️ Libro con ID ${id} eliminado correctamente.`);
-    return ` Libro con ID ${id} eliminado correctamente.`
+        // Eliminar el libro
+        const libroEliminado = data.books.splice(libroExistente, 1)[0];
+        fs.writeFileSync(booksPath, JSON.stringify(data, null, 2));
+        console.log(`🗑️ Libro con ID ${id} eliminado correctamente.`);
+        return ` Libro con ID ${id} eliminado correctamente.`
     
     } catch (error){
         console.log('❌ Error: No se pudo procesar la solicitud.');
