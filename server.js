@@ -34,6 +34,28 @@ const server = net.createServer((socket)=>{
             } else {
                 socket.write('❌ Error: Debes proporcionar un título.');
             }
+        } else if (command.startsWith('UPDATE BOOK')) { // ✏️ ACTUALIZAR LIBRO
+            const match = command.match(/\{.*\}/);
+            if (match) {
+                try {
+                    const updatedBook = JSON.parse(match[0]);
+                    const response = bookController.actualizarLibroPorId(updatedBook);
+                    socket.write(response);
+                } catch (error) {
+                    socket.write('Error: No se pudo procesar el JSON.');
+                }
+            } else {
+                socket.write('Error: No se encontró un JSON válido.');
+            }
+        } else if (command.startsWith('DELETE BOOK')) { // 🗑️ ELIMINAR LIBRO
+            const id = command.replace('DELETE BOOK', '').trim();
+            if (!id) {
+                socket.write('❌ Error: Debes proporcionar un ID.');
+            } else {
+                const response = bookController.eliminarLibroPorId(id);
+                                
+                socket.write(response || '❌ Error interno.');
+            }
         } else {
             socket.write('⚠️ Comando no válido.');
         }

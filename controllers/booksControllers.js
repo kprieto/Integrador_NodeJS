@@ -3,7 +3,6 @@ const responseView = require('../views/responseFormatter');
 
 const listarLibros = () => {
     const book = leerLibros();
-    //return leerLibros().books;
     return responseView.formatResponse(book);
 };
 
@@ -17,8 +16,8 @@ const eliminarLibroPorId = (id) => {
     eliminarLibro(id);
 };
 
-const actualizarLibroPorId = (id, nuevosDatos) => {
-    actualizarLibro(id, nuevosDatos);
+const actualizarLibroPorId = (nuevosDatos) => {
+    actualizarLibro(nuevosDatos);
 };
 
 const buscarLibro = (title) =>{

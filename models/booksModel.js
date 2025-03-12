@@ -15,25 +15,43 @@ const leerLibros = () => {
 const escribirLibros = (data) => {
     try {
         fs.writeFileSync(booksPath, JSON.stringify(data, null, 2), 'utf8');
-        console.log('Datos de libros guardados exitosamente');
+        console.log('✅ Datos de libros guardados exitosamente');
     } catch (err) {
         console.error('Error al guardar libros:', err);
     }
 };
 
 const eliminarLibro = (id) => {
-    const libros = leerLibros();
-    libros.books = libros.books.filter(libro => libro.id !== id);
-    escribirLibros(libros);
+    const data = leerLibros();
+    try {
+    // 🔍 Verificar si el ID existe
+    const libroExistente = data.books.find(book => book.id == id);
+    if (libroExistente === -1) {
+        return '❌ Error: El libro con ese ID no existe.';
+    }
+
+    // Eliminar el libro
+    data.books.splice(libroExistente, 1);
+    fs.writeFileSync(booksPath, JSON.stringify(data, null, 2));
+    console.log(`🗑️ Libro con ID ${id} eliminado correctamente.`);
+    return ` Libro con ID ${id} eliminado correctamente.`
+    
+    } catch (error){
+        console.log('❌ Error: No se pudo procesar la solicitud.');
+    }
 };
 
-const actualizarLibro = (id, nuevosDatos) => {
-    const libros = leerLibros();
-    const index = libros.books.findIndex(libro => libro.id === id);
+const actualizarLibro = (updatedBook) => {
+    const data = leerLibros();
+    const index = data.books.findIndex(book => book.id == updatedBook.id);
     if (index !== -1) {
-      libros.books[index] = { ...libros.books[index], ...nuevosDatos };
-      escribirLibros(libros);
+        data.books[index] = updatedBook;
+        fs.writeFileSync(booksPath, JSON.stringify(data, null, 2));
+        console.log('🔄 Libro actualizado correctamente.');
+    } else {
+        console.log('❌ Libro no encontrado.');
     }
+    
 };
 
 const buscarLibroPorTitulo = (title) =>{
