@@ -1,19 +1,19 @@
 {
-    "publishers": [ {
-    "id": 1,
-    "name": "Editorial Sudamericana",
-    "numBooks" : 1523
-
-},
-{
-    "id": 2,
-    "name": "Planeta",
-    "numBooks" : 250
-
-},
-{
-    "id": 3,
-    "name": "Herder",
-    "numBooks" : 1000
-
-}]}
+  "publishers": [
+    {
+      "id": 1,
+      "name": "Editorial Sudamericana",
+      "numBooks": 1523
+    },
+    {
+      "id": "2",
+      "name": "Planeta",
+      "numBooks": "256"
+    },
+    {
+      "id": 3,
+      "name": "Herder",
+      "numBooks": 1000
+    }
+  ]
+}

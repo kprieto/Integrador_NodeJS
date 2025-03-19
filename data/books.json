@@ -29,11 +29,18 @@
       "year": 1943
     },
     {
-      "id": 821,
+      "id": 5,
       "title": "El Hobbit",
       "author": "J.R.R. Tolkien",
       "publisher": "Allen & Unwin",
       "year": 1937
+    },
+    {
+      "id": "800",
+      "title": "La sangre manda",
+      "author": "Stephen King",
+      "publisher": "Plaza Janes",
+      "year": "2020"
     }
   ]
 }

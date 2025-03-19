@@ -135,14 +135,47 @@ function menuLibros() {
     });
 }
 
-// ✍️ Submenú para Autores (se puede expandir)
+// ✍️ Submenú para Autores
 function menuAutores() {
     console.log('\n🖊️ AUTORES');
-    console.log('1️⃣ - Ver todos los autores (No implementado aún)');
-    console.log('2️⃣ - Volver al menú principal');
+    console.log('1️⃣ - Ver todos los autores');
+    console.log('2️⃣ - Buscar un autor por nombre o nacionalidad');
+    console.log('3️⃣ - Agregar un nuevo autor');
+    console.log('4️⃣ - Actualizar un autor');
+    console.log('5️⃣ - Eliminar un autor');
+    console.log('6️⃣ - Volver al menú principal');
 
     rl.question('Elige una opción: ', (opcion) => {
-        if (opcion === '2') {
+        if (opcion === '1') {
+            client.write('GET AUTHORS'); // MOSTRAR LISTA DE AUTORES
+        } else if (opcion === '2') { //BUSCAR AUTOR
+            rl.question('📌 Ingresa el nombre o nacionalidad del autor: ', (name) => {
+                client.write(`SEARCH AUTHOR ${name}`);
+            });
+        } else if (opcion === '3') { //✏️ AGREGAR UN AUTOR
+            rl.question('📖 Nombre: ', (name) => {
+                rl.question('✍️ Nacionalidad: ', (nationality) => {
+                            const newAuthor = { name, nationality };
+                            client.write(`ADD AUTHOR ${JSON.stringify(newAuthor)}`);
+                        
+                    
+                });
+            });
+        } else if (opcion === '4') { // ✏️ ACTUALIZAR AUTOR
+            rl.question('🔄 ID del autor a actualizar: ', (id) => {
+                rl.question('📖 Nuevo Nombre: ', (name) => {
+                    rl.question('✍️ Nueva Nacionalidad: ', (nationality) => {
+                                const updatedAuthor = { id, name, nationality};
+                                client.write(`UPDATE AUTHOR ${JSON.stringify(updatedAuthor)}`);
+
+                    });
+                });
+            });
+        } else if (opcion === '5') { // 🗑️ ELIMINAR AUTHOR
+            rl.question('❌ ID del autor a eliminar: ', (id) => {
+                client.write(`DELETE AUTHOR ${id}`);
+            });
+        }else if (opcion === '6') {
             mostrarMenu();
         } else {
             console.log('⚠️ Opción no válida.');
@@ -151,18 +184,51 @@ function menuAutores() {
     });
 }
 
-// 🏢 Submenú para Editoriales (se puede expandir)
+// 🏢 Submenú para Editoriales 
 function menuEditoriales() {
     console.log('\n🏢 EDITORIALES');
-    console.log('1️⃣ - Ver todas las editoriales (No implementado aún)');
-    console.log('2️⃣ - Volver al menú principal');
+    console.log('1️⃣ - Ver todas las editoriales');
+    console.log('2️⃣ - Buscar una editorial por nombre');
+    console.log('3️⃣ - Agregar una nueva editorial');
+    console.log('4️⃣ - Actualizar una editorial');
+    console.log('5️⃣ - Eliminar una editorial');
+    console.log('6️⃣ - Volver al menú principal');
 
     rl.question('Elige una opción: ', (opcion) => {
-        if (opcion === '2') {
+        if (opcion === '1') {
+            client.write('GET PUBLISHERS'); // MOSTRAR LISTA DE EDITORIALES
+        } else if (opcion === '2') { //BUSCAR EDITORIAL
+            rl.question('📌 Ingresa el nombre de la editorial: ', (name) => {
+                client.write(`SEARCH PUBLISHER ${name}`);
+            });
+        } else if (opcion === '3') { //✏️ AGREGAR UNA EDITORIAL
+            rl.question('📖 Nombre: ', (name) => {
+                rl.question('✍️ Número de Libros: ', (numBooks) => {
+                            const newPublisher = { name, numBooks };
+                            client.write(`ADD PUBLISHER ${JSON.stringify(newPublisher)}`);
+                        
+                    
+                });
+            });
+        } else if (opcion === '4') { // ✏️ ACTUALIZAR EDITORIAL
+            rl.question('🔄 ID de la editorial a actualizar: ', (id) => {
+                rl.question('📖 Nuevo Nombre: ', (name) => {
+                    rl.question('✍️ Nuevo Número de Libros: ', (numBooks) => {
+                                const updatedPublisher = { id, name, numBooks};
+                                client.write(`UPDATE PUBLISHER ${JSON.stringify(updatedPublisher)}`);
+
+                    });
+                });
+            });
+        } else if (opcion === '5') { // 🗑️ ELIMINAR EDITORIAL
+            rl.question('❌ ID de la editorial a eliminar: ', (id) => {
+                client.write(`DELETE PUBLISHER ${id}`);
+            });
+        }else if (opcion === '6') {
             mostrarMenu();
         } else {
             console.log('⚠️ Opción no válida.');
-            menuEditoriales();
+            menuAutores();
         }
     });
 }

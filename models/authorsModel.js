@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const authorsPath = path.join(__dirname, '..', 'data', 'authors.json');
 
+// Leer el json de autores
 const leerAutores = () => {
     try {
         const data = fs.readFileSync(authorsPath, 'utf8');
@@ -12,15 +13,17 @@ const leerAutores = () => {
     }
 };
 
+//Guardar informacion en el json de autores
 const escribirAutores = (data) => {
     try {
         fs.writeFileSync(authorsPath, JSON.stringify(data, null, 2), 'utf8');
-        console.log('Datos de autores guardados exitosamente');
+        console.log('✅ Datos de autores guardados exitosamente');
     } catch (err) {
-        console.error('Error al guardar autores:', err);
+        console.error('❌ Error al guardar autores:', err);
     }
 };
 
+// Permite eliminar un autor
 const eliminarAutor = (id) => {
         try {
             const data = leerAutores();
@@ -35,16 +38,17 @@ const eliminarAutor = (id) => {
             const autorEliminado = data.authors.splice(autorExistente, 1)[0];
             fs.writeFileSync(authorsPath, JSON.stringify(data, null, 2));
             console.log(`🗑️ Autor con ID ${id} eliminado correctamente.`);
-            return ` Autor con ID ${id} eliminado correctamente.`
+            return data;
         
         } catch (error){
             console.log('❌ Error: No se pudo procesar la solicitud.');
         }
 };
 
+// Permite actualizar un autor 
 const actualizarAutor = (updatedAuthor) => {
     const autores = leerAutores();
-    const index = autores.authors.findIndex(book => book.id == updatedAuthor.id);
+    const index = autores.authors.findIndex(author => author.id == updatedAuthor.id);
     if (index !== -1) {
         autores.authors[index] = updatedAuthor;
         fs.writeFileSync(authorsPath, JSON.stringify(autores, null, 2));
@@ -54,9 +58,27 @@ const actualizarAutor = (updatedAuthor) => {
     }
 };
 
+//Permite buscar un autor por su nomble o nacionalidad
+const buscarAutorPorNombreoNacionalidad = (criterio) => {
+    const autores = leerAutores();
+    
+     const resultados = autores.authors.filter(autor => 
+        autor.name.toLowerCase().includes(criterio.toLowerCase()) ||
+        autor.nationality.toLowerCase().includes(criterio.toLowerCase())
+    );
+
+    if (resultados.length > 0) {
+        console.log('🔍 Autores encontrados:', resultados);
+        return resultados;
+    } else {
+        console.log('❌ No se encontraron autores con ese criterio.');
+    }
+};
+
 module.exports = {
     leerAutores,
     escribirAutores,
     eliminarAutor,
-    actualizarAutor
+    actualizarAutor,
+    buscarAutorPorNombreoNacionalidad
 };

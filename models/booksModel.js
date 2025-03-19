@@ -16,8 +16,9 @@ const escribirLibros = (data) => {
     try {
         fs.writeFileSync(booksPath, JSON.stringify(data, null, 2), 'utf8');
         console.log('✅ Datos de libros guardados exitosamente');
+        return data;
     } catch (err) {
-        console.error('Error al guardar libros:', err);
+        console.error('❌ Error al guardar libros:', err);
     }
 };
 
@@ -50,6 +51,7 @@ const actualizarLibro = (updatedBook) => {
         data.books[index] = updatedBook;
         fs.writeFileSync(booksPath, JSON.stringify(data, null, 2));
         console.log('🔄 Libro actualizado correctamente.');
+        return data;
     } else {
         console.log('❌ Libro no encontrado.');
     }
@@ -58,7 +60,14 @@ const actualizarLibro = (updatedBook) => {
 
 const buscarLibroPorTitulo = (title) =>{
     const libros = leerLibros();
-    return libros.books.find(book => book.title.toLowerCase() === title.toLowerCase()) || null;
+    const resultados = libros.books.filter(book => book.title.toLowerCase().includes(title.toLowerCase()) || null);
+    
+    if (resultados.length > 0) {
+        console.log('🔍 Libros encontrados:', resultados);
+        return resultados;
+    } else {
+        console.log('❌ No se encontraron libros con ese criterio.');
+    }
 }
 
 module.exports = {

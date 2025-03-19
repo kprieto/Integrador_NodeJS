@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const publishersPath = path.join(__dirname, '..', 'data', 'publishers.json');
 
+// Leer el json de editoriales
 const leerEditoriales = () => {
     try {
         const data = fs.readFileSync(publishersPath, 'utf8');
@@ -12,39 +13,41 @@ const leerEditoriales = () => {
     }
 };
 
+//Guardar informacion en el json de editoriales
 const escribirEditoriales = (data) => {
     try {
         fs.writeFileSync(publishersPath, JSON.stringify(data, null, 2), 'utf8');
-        console.log('Datos de editoriales guardados exitosamente');
+        console.log('✅ Datos de editoriales guardados exitosamente');
+        return data;
     } catch (err) {
-        console.error('Error al guardar editoriales:', err);
+        console.error('❌ Error al guardar editoriales:', err);
     }
 };
 
+// Permite Eliminar una editorial
 const eliminarEditorial = (id) => {
     const editoriales = leerEditoriales();
-    editoriales.publishers = editoriales.publishers.filter(editorial => editorial.id !== id);
-    escribirEditoriales(editoriales);
+
     try {
-        const editoriales = leerEditoriales();
          // 🔍 Verificar si el ID existe
-        const editorialExistente = editoriales.publishers.findIndex(book => String(book.id) === String(id));
+        const editorialExistente = editoriales.publishers.findIndex(publisher => String(publisher.id) === String(id));
         if (editorialExistente === -1) {
             console.log('❌ Error: La editorial con ese ID no existe.')
             return '❌ Error: La editorial con ese ID no existe.';
         }
         
-        // Eliminar el editor
+        // Eliminar el editorial
         const editorialEliminado = editoriales.publishers.splice(editorialExistente, 1)[0];
         fs.writeFileSync(publishersPath, JSON.stringify(editoriales, null, 2));
         console.log(`🗑️ Editorial con ID ${id} eliminado correctamente.`);
-        return ` Editorial con ID ${id} eliminado correctamente.`
+        return editoriales;
             
     } catch (error){
             console.log('❌ Error: No se pudo procesar la solicitud.');
         }
 };
 
+//Permite actualizar un editorial
 const actualizarEditorial = (updatedPublisher) => {
     const editoriales = leerEditoriales();
     const index = editoriales.publishers.findIndex(book => book.id == updatedPublisher.id);
@@ -52,14 +55,29 @@ const actualizarEditorial = (updatedPublisher) => {
         editoriales.publishers[index] = updatedPublisher;
         fs.writeFileSync(publishersPath, JSON.stringify(editoriales, null, 2));
         console.log('🔄 Editorial actualizado correctamente.');
+        return editoriales;
     } else {
-        console.log('❌ Editorial no encontrado.');
+        console.log('❌ Editorial no encontrada.');
     }
 };
+
+// Permite buscar una editorial por nombre
+const buscarEditorialPorNombre = (name) =>{
+    const editorial = leerEditoriales();
+    const resultados = editorial.publishers.filter(publisher => publisher.name.toLowerCase().includes(name.toLowerCase()) || null);
+    
+    if (resultados.length > 0) {
+        console.log('🔍 Editorales encontradas:', resultados);
+        return resultados;
+    } else {
+        console.log('❌ No se encontraron editoriales con ese criterio.');
+    }
+}
 
 module.exports = {
     leerEditoriales,
     escribirEditoriales,
     eliminarEditorial,
-    actualizarEditorial
+    actualizarEditorial,
+    buscarEditorialPorNombre
 };

@@ -1,8 +1,11 @@
-const { leerEditoriales, escribirEditoriales, eliminarEditorial, actualizarEditorial } = require('../models/publishersModel');
+const { leerEditoriales, escribirEditoriales, eliminarEditorial, actualizarEditorial, buscarEditorialPorNombre } = require('../models/publishersModel');
+const responseView = require('../views/responseFormatter');
 
 const listarEditoriales = () => {
-    return leerEditoriales().publishers;
+    const publisher = leerEditoriales();
+    return responseView.formatResponse(publisher);
 };
+
 
 const agregarEditorial = (editorial) => {
     const editoriales = leerEditoriales();
@@ -18,9 +21,15 @@ const actualizarEditorialPorId = (nuevosDatos) => {
     actualizarEditorial(nuevosDatos);
 };
 
+const buscarEditorial = (criterios) =>{
+    const editorial = buscarEditorialPorNombre(criterios);
+    return editorial ? JSON.stringify(editorial) : 'Editorial no encontrada.';
+}
+
 module.exports = {
     listarEditoriales,
     agregarEditorial,
     eliminarEditorialPorId,
-    actualizarEditorialPorId
+    actualizarEditorialPorId,
+    buscarEditorial
 };
