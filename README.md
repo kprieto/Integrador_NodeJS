@@ -115,22 +115,36 @@ Esto abrirá un menú donde podrás realizar diversas operaciones con los libros
 # ESTRUCTURA DE ARCHIVOS
 
 El proyecto tiene la siguiente estructura de carpetas:
-`
 book-api/
+
 ├── controllers/
+
 │   ├── booksController.js
+
 │   ├── authorsController.js
+
 │   └── publishersController.js
+
 ├── models/
+
 │   ├── booksModel.js
+
 │   ├── authorsModel.js
+
 │   └── publishersModel.js
+
 ├── data/
+
 │   ├── books.json
+
 │   ├── authors.json
+
 │   └── publishers.json
+
 ├── views/
+
 │   └── responseFormatter.js
+
 ├── server.js
+
 └── client.js
-`
