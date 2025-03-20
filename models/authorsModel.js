@@ -18,6 +18,7 @@ const escribirAutores = (data) => {
     try {
         fs.writeFileSync(authorsPath, JSON.stringify(data, null, 2), 'utf8');
         console.log('✅ Datos de autores guardados exitosamente');
+        return data;
     } catch (err) {
         console.error('❌ Error al guardar autores:', err);
     }
@@ -28,7 +29,7 @@ const eliminarAutor = (id) => {
         try {
             const data = leerAutores();
             // 🔍 Verificar si el ID existe
-            const autorExistente = data.authors.findIndex(book => String(book.id) === String(id));
+            const autorExistente = data.authors.findIndex(author => String(author.id) === String(id));
             if (autorExistente === -1) {
                 console.log('❌ Error: El libro con ese ID no existe.')
                 return '❌ Error: El libro con ese ID no existe.';

@@ -26,9 +26,9 @@ const escribirEditoriales = (data) => {
 
 // Permite Eliminar una editorial
 const eliminarEditorial = (id) => {
-    const editoriales = leerEditoriales();
 
     try {
+        const editoriales = leerEditoriales();
          // 🔍 Verificar si el ID existe
         const editorialExistente = editoriales.publishers.findIndex(publisher => String(publisher.id) === String(id));
         if (editorialExistente === -1) {
@@ -50,7 +50,7 @@ const eliminarEditorial = (id) => {
 //Permite actualizar un editorial
 const actualizarEditorial = (updatedPublisher) => {
     const editoriales = leerEditoriales();
-    const index = editoriales.publishers.findIndex(book => book.id == updatedPublisher.id);
+    const index = editoriales.publishers.findIndex(book => parseInt(book.id)== parseInt(updatedPublisher.id));
     if (index !== -1) {
         editoriales.publishers[index] = updatedPublisher;
         fs.writeFileSync(publishersPath, JSON.stringify(editoriales, null, 2));

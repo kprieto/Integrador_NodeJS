@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const booksPath = path.join(__dirname, '..', 'data', 'books.json');
 
+// Leer el json de libros
 const leerLibros = () => {
     try {
         const data = fs.readFileSync(booksPath, 'utf8');
@@ -12,6 +13,7 @@ const leerLibros = () => {
     }
 };
 
+//Guardar informacion en el json de autores
 const escribirLibros = (data) => {
     try {
         fs.writeFileSync(booksPath, JSON.stringify(data, null, 2), 'utf8');
@@ -22,6 +24,7 @@ const escribirLibros = (data) => {
     }
 };
 
+// Permite eliminar un libro
 const eliminarLibro = (id) => {
     
     try {
@@ -37,13 +40,14 @@ const eliminarLibro = (id) => {
         const libroEliminado = data.books.splice(libroExistente, 1)[0];
         fs.writeFileSync(booksPath, JSON.stringify(data, null, 2));
         console.log(`🗑️ Libro con ID ${id} eliminado correctamente.`);
-        return ` Libro con ID ${id} eliminado correctamente.`
+        return data;
     
     } catch (error){
         console.log('❌ Error: No se pudo procesar la solicitud.');
     }
 };
 
+// Permite acutializar un libro
 const actualizarLibro = (updatedBook) => {
     const data = leerLibros();
     const index = data.books.findIndex(book => book.id == updatedBook.id);
@@ -58,6 +62,7 @@ const actualizarLibro = (updatedBook) => {
     
 };
 
+// Permite buscar un libro por titulo
 const buscarLibroPorTitulo = (title) =>{
     const libros = leerLibros();
     const resultados = libros.books.filter(book => book.title.toLowerCase().includes(title.toLowerCase()) || null);
