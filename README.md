@@ -115,7 +115,7 @@ Esto abrirá un menú donde podrás realizar diversas operaciones con los libros
 # ESTRUCTURA DE ARCHIVOS
 
 El proyecto tiene la siguiente estructura de carpetas:
-'
+`
 book-api/
 ├── controllers/
 │   ├── booksController.js
@@ -133,4 +133,4 @@ book-api/
 │   └── responseFormatter.js
 ├── server.js
 └── client.js
-'
+`
